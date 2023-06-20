@@ -1,14 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './ExpenseForm.css'
 
 const ExpenseForm = (props) => {
-    const [enteredTitle, setEnteredTitle] = useState('');
+    const titleInputRef = useRef();
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
-
-    const titleChangeHandler = (event) => {
-        setEnteredTitle(event.target.value);
-    };
 
     const amountChangeHandler = (event) => {
         setEnteredAmount(event.target.value);
@@ -21,13 +17,12 @@ const ExpenseForm = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();             // prevent page from reloading when button is clicked
         const expenseData = {
-            title: enteredTitle,
+            title: titleInputRef.current.value,
             amount: +enteredAmount,
             date: new Date(enteredDate)
         };
 
         props.onSaveExpenseData(expenseData);
-        setEnteredTitle('');
         setEnteredAmount('');
         setEnteredDate('');
     };
@@ -37,7 +32,7 @@ const ExpenseForm = (props) => {
             <div className='new-expense__controls'>
                 <div className='new-expense__control'>
                     <label>Title</label>
-                    <input type='text' value={enteredTitle} onChange={titleChangeHandler} />
+                    <input type='text' ref={titleInputRef} />
                 </div>
                 <div className='new-expense__control'>
                     <label>Amount</label>
