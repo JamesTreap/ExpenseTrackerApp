@@ -1,5 +1,5 @@
 import './Expenses.css';
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import ExpensesFilter from './ExpenseFilter';
 import ExpenseList from './ExpenseList';
 import ExpensesChart from './ExpensesChart';
@@ -16,7 +16,7 @@ function Expenses(props) {
     };
 
     return (
-        <div>
+        <Fragment>
             <Card className="expenses">
                 <ExpensesFilter
                     selected={theYear}
@@ -24,7 +24,7 @@ function Expenses(props) {
                 <ExpensesChart expenses={filteredExpenses} />
                 <ExpenseList items={filteredExpenses} />
             </Card>
-        </div>
+        </Fragment>
     );
 }
 
